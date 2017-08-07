@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectMatcher", "ObjectMatcher\ObjectMatcher.csproj", "{26F275F0-581F-4F8B-84BE-72910848C0FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectMatcherTester", "ObjectMatcherTester\ObjectMatcherTester.csproj", "{AA1EEF39-F7A2-440C-82BD-50CACA95B939}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26F275F0-581F-4F8B-84BE-72910848C0FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F275F0-581F-4F8B-84BE-72910848C0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F275F0-581F-4F8B-84BE-72910848C0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F275F0-581F-4F8B-84BE-72910848C0FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1EEF39-F7A2-440C-82BD-50CACA95B939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1EEF39-F7A2-440C-82BD-50CACA95B939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1EEF39-F7A2-440C-82BD-50CACA95B939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1EEF39-F7A2-440C-82BD-50CACA95B939}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
