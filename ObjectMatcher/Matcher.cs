@@ -12,12 +12,12 @@ namespace ObjectMatcher
 
             if (IsValueType(o1) && IsValueType(o2))
             {
-                ValueTypeMatcher valueTypeMatcher = new ValueTypeMatcher();
+                IMatcher valueTypeMatcher = new ValueTypeMatcher();
                 return valueTypeMatcher.AreEqual(o1, o2);
             }
             if (IsValueType(o1) == false && IsValueType(o2) == false)
             {
-                ReferenceTypeMatcher refTypeMatcher = new ReferenceTypeMatcher();
+                IMatcher refTypeMatcher = new ReferenceTypeMatcher();
                 return refTypeMatcher.AreEqual(o1, o2);
             }
 

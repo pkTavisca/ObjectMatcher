@@ -9,6 +9,11 @@ namespace ObjectMatcher
         {
             if (o1.GetType().Equals(o2.GetType()) == false) return false;
 
+            if (IsArray(o1))
+            {
+                IMatcher arrayMatcher = new ArrayMatcher();
+            }
+
             var fieldsObj1 = GetPropertiesOf(o1);
             var fieldsObj2 = GetPropertiesOf(o2);
 
@@ -20,6 +25,11 @@ namespace ObjectMatcher
             }
 
             return true;
+        }
+
+        private bool IsArray(object obj)
+        {
+            return obj is Array;
         }
 
         private static FieldInfo[] GetPropertiesOf(object obj)
