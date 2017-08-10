@@ -10,41 +10,29 @@ namespace ObjectMatcher
     {
         public bool AreEqual(object x, object y)
         {
-            var fields = GetFieldsOf(x);
+            IList listX = x as IList;
+            IList listY = y as IList;
 
-            int sizeOfX = GetSizeOf(x);
-            int sizeOfY = GetSizeOf(y);
-            if (sizeOfX != sizeOfY) return false;
+            if (listX.Count != listY.Count) return false;
 
             IMatcher matcher = new Matcher();
 
-            for (int i = 0; i < ((IList)x).Count; i++)
+            for (int i = 0; i < listX.Count; i++)
             {
-                var elementOfX = ((IList)x)[i];
-                for (int j = 0; j < ((IList)y).Count; j++)
+                var elementOfX = listX[i];
+                for (int j = 0; j < listY.Count; j++)
                 {
-                    var elementOfY = ((IList)y)[j];
+                    var elementOfY = listY[j];
                     if (matcher.AreEqual(elementOfX, elementOfY))
                     {
-                        ((IList)x).RemoveAt(i--);
-                        ((IList)y).RemoveAt(j--);
+                        listX.RemoveAt(i--);
+                        listY.RemoveAt(j--);
                         break;
                     }
                 }
             }
-            if (((IList)x).Count > 0) return false;
+            if (listX.Count > 0) return false;
             return true;
-        }
-
-        private int GetSizeOf(object x)
-        {
-            var fields = GetFieldsOf(x);
-            return (int)fields[1].GetValue(x);
-        }
-
-        private FieldInfo[] GetFieldsOf(object obj)
-        {
-            return obj.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
         }
     }
 }

@@ -24,6 +24,12 @@ namespace ObjectMatcher
                 return listMatcher.AreEqual(x, y);
             }
 
+            if (IsDictionary(x))
+            {
+                IMatcher dictMatcher = new DictionaryMatcher();
+                return dictMatcher.AreEqual(x, y);
+            }
+
             InjectEqualityFunctionIfDictionary(x, y);
 
             IMatcher matcher = new Matcher();
