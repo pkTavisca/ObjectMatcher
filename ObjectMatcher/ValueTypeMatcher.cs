@@ -7,9 +7,10 @@ namespace ObjectMatcher
     {
         public bool AreEqual(object o1, object o2)
         {
-            if(IsStruct(o1) && IsStruct(o2))
+            if (IsStruct(o1) && IsStruct(o2))
             {
-
+                IMatcher refMatcher = new ReferenceTypeMatcher();
+                return refMatcher.AreEqual(o1, o2);
             }
             return o1 == o2;
         }

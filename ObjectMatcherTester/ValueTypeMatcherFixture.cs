@@ -106,14 +106,5 @@ namespace ObjectMatcherTester
             IMatcher matcher = new Matcher();
             Assert.True(matcher.AreEqual(ref1, ref1));
         }
-
-        [Fact]
-        public void Testing_if_two_objects_with_only_value_type_props_are_equal()
-        {
-            ObjectWithValueTypeProps o1 = new ObjectWithValueTypeProps(5);
-            ObjectWithValueTypeProps o2 = new ObjectWithValueTypeProps(5);
-            IMatcher matcher = new Matcher();
-            Assert.True(matcher.AreEqual(o1, o2));
-        }
     }
 }

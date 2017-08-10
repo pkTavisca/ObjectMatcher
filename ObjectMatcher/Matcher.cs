@@ -13,7 +13,7 @@ namespace ObjectMatcher
             if (IsValueType(o1) && IsValueType(o2))
             {
                 ValueTypeMatcher valueTypeMatcher = new ValueTypeMatcher();
-                valueTypeMatcher.AreEqual(o1, o2);
+                return valueTypeMatcher.AreEqual(o1, o2);
             }
             if (IsValueType(o1) == false && IsValueType(o2) == false)
             {
