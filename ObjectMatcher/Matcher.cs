@@ -3,30 +3,25 @@ using System.Collections;
 
 namespace ObjectMatcher
 {
-    public class Matcher : IMatcher, IComparer
+    public class Matcher : IMatcher
     {
-        public bool AreEqual(Object o1, Object o2)
+        public bool AreEqual(Object x, Object y)
         {
-            if (o1 == null || o2 == null) return false;
-            if (o1.Equals(o2)) return true;
+            if (x == null || y == null) return false;
+            if (x.Equals(y)) return true;
 
-            if (IsValueType(o1) && IsValueType(o2))
+            if (IsValueType(x) && IsValueType(y))
             {
                 IMatcher valueTypeMatcher = new ValueTypeMatcher();
-                return valueTypeMatcher.AreEqual(o1, o2);
+                return valueTypeMatcher.AreEqual(x, y);
             }
-            if (IsValueType(o1) == false && IsValueType(o2) == false)
+            if (IsValueType(x) == false && IsValueType(y) == false)
             {
                 IMatcher refTypeMatcher = new ReferenceTypeMatcher();
-                return refTypeMatcher.AreEqual(o1, o2);
+                return refTypeMatcher.AreEqual(x, y);
             }
 
             return false;
-        }
-
-        public int Compare(object x, object y)
-        {
-            throw new NotImplementedException();
         }
 
         private bool IsValueType(Object obj)

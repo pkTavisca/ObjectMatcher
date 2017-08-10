@@ -5,14 +5,14 @@ namespace ObjectMatcher
 {
     public class ValueTypeMatcher : IMatcher
     {
-        public bool AreEqual(object o1, object o2)
+        public bool AreEqual(object x, object y)
         {
-            if (IsStruct(o1) && IsStruct(o2))
+            if (IsStruct(x) && IsStruct(y))
             {
                 IMatcher refMatcher = new ReferenceTypeMatcher();
-                return refMatcher.AreEqual(o1, o2);
+                return refMatcher.AreEqual(x, y);
             }
-            return o1 == o2;
+            return x == y;
         }
 
         public bool IsStruct(Object obj)

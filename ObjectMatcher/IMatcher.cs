@@ -4,6 +4,6 @@ namespace ObjectMatcher
 {
     public interface IMatcher
     {
-        bool AreEqual(Object o1, Object o2);
+        bool AreEqual(Object x, Object y);
     }
 }

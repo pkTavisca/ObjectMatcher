@@ -6,27 +6,32 @@ namespace ObjectMatcher
 {
     internal class ReferenceTypeMatcher : IMatcher
     {
-        public bool AreEqual(object o1, object o2)
+        public bool AreEqual(object x, object y)
         {
-            if (o1.GetType().Equals(o2.GetType()) == false) return false;
+            if (x.GetType().Equals(y.GetType()) == false) return false;
 
-            if (IsArray(o1))
+            if (IsArray(x))
             {
                 IMatcher arrayMatcher = new ArrayMatcher();
-                return arrayMatcher.AreEqual(o1, o2);
+                return arrayMatcher.AreEqual(x, y);
             }
 
-            var fieldsObj = GetFieldsOf(o1);
+            var fieldsObj = GetFieldsOf(x);
 
-            SortArrayIfList(o1, o2);
-            InjectEqualityFunctionIfDictionary(o1, o2);
+            if (IsList(x))
+            {
+                IMatcher listMatcher = new ListMatcher();
+                return listMatcher.AreEqual(x, y);
+            }
+
+            InjectEqualityFunctionIfDictionary(x, y);
 
             IMatcher matcher = new Matcher();
             for (int i = 0; i < fieldsObj.Length; i++)
             {
-                if (fieldsObj[i].GetValue(o1) == null && fieldsObj[i].GetValue(o2) == null)
+                if (fieldsObj[i].GetValue(x) == null && fieldsObj[i].GetValue(y) == null)
                     continue;
-                if (matcher.AreEqual(fieldsObj[i].GetValue(o1), fieldsObj[i].GetValue(o2)) == false)
+                if (matcher.AreEqual(fieldsObj[i].GetValue(x), fieldsObj[i].GetValue(y)) == false)
                     return false;
             }
 
@@ -47,18 +52,6 @@ namespace ObjectMatcher
         private bool IsDictionary(object obj)
         {
             return obj.GetType().FullName.Contains("System.Collections.Generic.Dictionary");
-        }
-
-        private void SortArrayIfList(params object[] objects)
-        {
-            foreach (var obj in objects)
-            {
-                if (IsList(obj) == true)
-                {
-                    var fields = GetFieldsOf(obj);
-                    Array.Sort(fields[0].GetValue(obj) as Array,new Matcher());
-                }
-            }
         }
 
         private bool IsList(object obj)

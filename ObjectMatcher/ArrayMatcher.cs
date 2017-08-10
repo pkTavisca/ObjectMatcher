@@ -4,13 +4,13 @@ namespace ObjectMatcher
 {
     public class ArrayMatcher : IMatcher
     {
-        public bool AreEqual(object o1, object o2)
+        public bool AreEqual(object x, object y)
         {
-            if (GetLength(o1) != GetLength(o2)) return false;
+            if (GetLength(x) != GetLength(y)) return false;
             IMatcher matcher = new Matcher();
-            for (int i = 0; i < GetLength(o1); i++)
+            for (int i = 0; i < GetLength(x); i++)
             {
-                if (matcher.AreEqual(((Array)o1).GetValue(i), ((Array)o2).GetValue(i)) == false)
+                if (matcher.AreEqual(((Array)x).GetValue(i), ((Array)y).GetValue(i)) == false)
                     return false;
             }
             return true;
