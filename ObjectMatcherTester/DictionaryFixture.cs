@@ -57,7 +57,12 @@ namespace ObjectMatcherTester
                 { new ObjectWithObjectProp(new ObjectWithValueTypeProps(1,1)),1 },
                 { new ObjectWithObjectProp(new ObjectWithValueTypeProps(1,1)),2 }
             };
-            var dict2 = new Dictionary<ObjectWithObjectProp, int>(dict1);
+
+            Dictionary<ObjectWithObjectProp, int> dict2 = new Dictionary<ObjectWithObjectProp, int>()
+            {
+                { new ObjectWithObjectProp(new ObjectWithValueTypeProps(1,1)),1 },
+                { new ObjectWithObjectProp(new ObjectWithValueTypeProps(1,1)),2 }
+            };
             IMatcher matcher = new Matcher();
             Assert.True(matcher.AreEqual(dict1, dict2));
         }

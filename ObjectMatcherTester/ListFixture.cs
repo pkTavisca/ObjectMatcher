@@ -1,4 +1,5 @@
 ﻿using ObjectMatcher;
+using ObjectMatcherTester.Objects;
 using System.Collections.Generic;
 using Xunit;
 
@@ -29,6 +30,24 @@ namespace ObjectMatcherTester
         {
             List<int> o1 = new List<int>() { 1, 2, 3 };
             List<int> o2 = new List<int>() { 1, 2, 3, 4 };
+            IMatcher matcher = new Matcher();
+            Assert.False(matcher.AreEqual(o1, o2));
+        }
+
+        [Fact]
+        public void Check_if_ref_type_same_lists_are_equal()
+        {
+            List<ObjectWithValueTypeProps> o1 = new List<ObjectWithValueTypeProps>() { new ObjectWithValueTypeProps(1, 1) };
+            List<ObjectWithValueTypeProps> o2 = new List<ObjectWithValueTypeProps>() { new ObjectWithValueTypeProps(1, 1) };
+            IMatcher matcher = new Matcher();
+            Assert.True(matcher.AreEqual(o1, o2));
+        }
+
+        [Fact]
+        public void Check_if_ref_type_different_lists_are_equal()
+        {
+            List<ObjectWithValueTypeProps> o1 = new List<ObjectWithValueTypeProps>() { new ObjectWithValueTypeProps(1, 1) };
+            List<ObjectWithValueTypeProps> o2 = new List<ObjectWithValueTypeProps>() { new ObjectWithValueTypeProps(1, 2) };
             IMatcher matcher = new Matcher();
             Assert.False(matcher.AreEqual(o1, o2));
         }

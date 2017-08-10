@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace ObjectMatcher
 {
-    public class Matcher : IMatcher
+    public class Matcher : IMatcher, IComparer
     {
         public bool AreEqual(Object o1, Object o2)
         {
@@ -22,6 +22,11 @@ namespace ObjectMatcher
             }
 
             return false;
+        }
+
+        public int Compare(object x, object y)
+        {
+            throw new NotImplementedException();
         }
 
         private bool IsValueType(Object obj)

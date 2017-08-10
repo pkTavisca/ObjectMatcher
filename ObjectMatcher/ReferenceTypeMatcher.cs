@@ -19,6 +19,7 @@ namespace ObjectMatcher
             var fieldsObj = GetFieldsOf(o1);
 
             SortArrayIfList(o1, o2);
+            InjectEqualityFunctionIfDictionary(o1, o2);
 
             IMatcher matcher = new Matcher();
             for (int i = 0; i < fieldsObj.Length; i++)
@@ -32,6 +33,22 @@ namespace ObjectMatcher
             return true;
         }
 
+        private void InjectEqualityFunctionIfDictionary(params object[] objects)
+        {
+            foreach (var obj in objects)
+            {
+                if (IsDictionary(obj))
+                {
+                    var fields = GetFieldsOf(obj);
+                }
+            }
+        }
+
+        private bool IsDictionary(object obj)
+        {
+            return obj.GetType().FullName.Contains("System.Collections.Generic.Dictionary");
+        }
+
         private void SortArrayIfList(params object[] objects)
         {
             foreach (var obj in objects)
@@ -39,7 +56,7 @@ namespace ObjectMatcher
                 if (IsList(obj) == true)
                 {
                     var fields = GetFieldsOf(obj);
-                    Array.Sort(fields[0].GetValue(obj) as Array);
+                    Array.Sort(fields[0].GetValue(obj) as Array,new Matcher());
                 }
             }
         }
