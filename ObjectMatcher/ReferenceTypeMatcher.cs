@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace ObjectMatcher
@@ -12,19 +13,40 @@ namespace ObjectMatcher
             if (IsArray(o1))
             {
                 IMatcher arrayMatcher = new ArrayMatcher();
+                return arrayMatcher.AreEqual(o1, o2);
             }
 
-            var fieldsObj1 = GetPropertiesOf(o1);
-            var fieldsObj2 = GetPropertiesOf(o2);
+            var fieldsObj = GetFieldsOf(o1);
+
+            SortArrayIfList(o1, o2);
 
             IMatcher matcher = new Matcher();
-            for (int i = 0; i < fieldsObj1.Length; i++)
+            for (int i = 0; i < fieldsObj.Length; i++)
             {
-                if (matcher.AreEqual(fieldsObj1[i].GetValue(o1), fieldsObj2[i].GetValue(o2)) == false)
+                if (fieldsObj[i].GetValue(o1) == null && fieldsObj[i].GetValue(o2) == null)
+                    continue;
+                if (matcher.AreEqual(fieldsObj[i].GetValue(o1), fieldsObj[i].GetValue(o2)) == false)
                     return false;
             }
 
             return true;
+        }
+
+        private void SortArrayIfList(params object[] objects)
+        {
+            foreach (var obj in objects)
+            {
+                if (IsList(obj) == true)
+                {
+                    var fields = GetFieldsOf(obj);
+                    Array.Sort(fields[0].GetValue(obj) as Array);
+                }
+            }
+        }
+
+        private bool IsList(object obj)
+        {
+            return obj.GetType().FullName.Contains("System.Collections.Generic.List");
         }
 
         private bool IsArray(object obj)
@@ -32,7 +54,7 @@ namespace ObjectMatcher
             return obj is Array;
         }
 
-        private static FieldInfo[] GetPropertiesOf(object obj)
+        private FieldInfo[] GetFieldsOf(object obj)
         {
             return obj.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
         }
