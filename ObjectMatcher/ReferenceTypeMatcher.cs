@@ -6,7 +6,8 @@ namespace ObjectMatcher
     {
         public bool AreEqual(object o1, object o2)
         {
-            throw new NotImplementedException();
+            if (o1.GetType().Equals(o2.GetType()) == false) return false;
+            return true;
         }
     }
 }

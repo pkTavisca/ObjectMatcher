@@ -15,10 +15,11 @@ namespace ObjectMatcher
                 ValueTypeMatcher valueTypeMatcher = new ValueTypeMatcher();
                 valueTypeMatcher.AreEqual(o1, o2);
             }
-            else return false;
-
-
-
+            if (IsValueType(o1) == false && IsValueType(o2) == false)
+            {
+                ReferenceTypeMatcher refTypeMatcher = new ReferenceTypeMatcher();
+                return refTypeMatcher.AreEqual(o1, o2);
+            }
 
             return false;
         }
